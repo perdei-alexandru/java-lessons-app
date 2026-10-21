@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <title>Editează Lecția</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f6f9;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        h2 {
+            color: #2c3e50;
+            margin-top: 0;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #333;
+        }
+        .form-group input, .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        .btn {
+            background-color: #2ecc71;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1em;
+            text-decoration: none;
+            display: inline-block;
+        }
+        .btn:hover {
+            background-color: #27ae60;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Editează Lecția</h2>
+
+    <!-- Formularul trimite datele către /update prin metoda POST -->
+    <form th:action="@{/update}" method="POST">
+
+        <!-- 1. CÂMP ASCUNS CU ID-UL LECȚIEI -->
+        <input type="hidden" name="id" th:value="${lectie.id}" />
+
+        <!-- 2. TITLU PRE-COMPLETAT -->
+        <div class="form-group">
+            <label for="titlu">Titlu Lecție:</label>
+            <input type="text" id="titlu" name="titlu" th:value="${lectie.titlu}" required>
+        </div>
+
+        <!-- 3. CATEGORIE PRE-COMPLETATĂ -->
+        <div class="form-group">
+            <label for="categorie">Categorie:</label>
+            <input type="text" id="categorie" name="categorie" th:value="${lectie.categorie}" required>
+        </div>
+
+        <!-- 4. CONȚINUT PRE-COMPLETAT -->
+        <div class="form-group">
+            <label for="continut">Conținut:</label>
+            <textarea id="continut" name="continut" rows="6" th:text="${lectie.continut}" required></textarea>
+        </div>
+
+        <!-- BUTOANE ACȚIUNE -->
+        <button type="submit" class="btn">Salvează Modificările</button>
+        <a href="/" class="btn" style="background-color: #95a5a6;">Renunță</a>
+    </form>
+</div>
+
+</body>
+</html>

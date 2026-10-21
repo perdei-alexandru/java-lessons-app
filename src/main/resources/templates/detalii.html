@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${lectie.titlu}">Detalii Lecție</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f6f9;
+            margin: 0;
+            padding: 30px;
+        }
+        .container {
+            max-width: 850px;
+            margin: 0 auto;
+            background: white;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .btn-back {
+            display: inline-block;
+            margin-bottom: 20px;
+            text-decoration: none;
+            color: #3498db;
+            font-weight: bold;
+        }
+        .badge {
+            background-color: #3498db;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.8em;
+            text-transform: uppercase;
+        }
+        .titlu-detalii {
+            color: #2c3e50;
+            margin-top: 10px;
+        }
+        /* Caseta intunecata pentru codul Java */
+        pre {
+            background: #282c34;
+            color: #abb2bf;
+            padding: 20px;
+            border-radius: 6px;
+            overflow-x: auto;
+            font-family: 'Consolas', 'Courier New', monospace;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+        /* Caseta albastra pentru explicatia codului */
+        .explicatie-box {
+            background: #eef7ff;
+            border-left: 4px solid #3498db;
+            padding: 15px;
+            margin-top: 25px;
+            border-radius: 4px;
+        }
+        .explicatie-box h4 {
+            margin-top: 0;
+            color: #2c3e50;
+        }
+        .explicatie-box p {
+            color: #444;
+            line-height: 1.6;
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <a href="/" class="btn-back">← Înapoi la lista de lecții</a>
+
+    <div>
+        <span class="badge" th:text="${lectie.categorie}">Categorie</span>
+        <h1 class="titlu-detalii" th:text="${lectie.titlu}">Titlu Lecție</h1>
+    </div>
+
+    <h3>Cod sursă Java:</h3>
+    <!-- Blocul care afiseaza codul brut -->
+    <pre><code th:text="${lectie.cod}">// Codul Java va aparea aici...</code></pre>
+
+    <!-- Secțiunea dedicată explicării codului -->
+    <div class="explicatie-box">
+        <h4>Explicația codului:</h4>
+        <p th:text="${lectie.explicatie}">Explicație cod...</p>
+    </div>
+</div>
+
+</body>
+</html>
