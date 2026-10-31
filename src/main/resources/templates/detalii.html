@@ -77,14 +77,34 @@
         <h1 class="titlu-detalii" th:text="${lectie.titlu}">Titlu Lecție</h1>
     </div>
 
-    <h3>Cod sursă Java:</h3>
-    <!-- Blocul care afiseaza codul brut -->
-    <pre><code th:text="${lectie.cod}">// Codul Java va aparea aici...</code></pre>
+    <!-- DACĂ ESTE LABORATOR -->
+    <div th:if="${lectie.categorie == 'Laboratoare'}" style="margin-top: 20px;">
+        <h3>Cerințe și Detalii Laborator:</h3>
+        <div style="background: #fff; padding: 15px; border: 1px solid #ddd; border-radius: 6px; line-height: 1.6;" th:text="${lectie.continut}">
+            Conținut laborator...
+        </div>
 
-    <!-- Secțiunea dedicată explicării codului -->
-    <div class="explicatie-box">
-        <h4>Explicația codului:</h4>
-        <p th:text="${lectie.explicatie}">Explicație cod...</p>
+        <div style="margin-top: 25px; padding: 20px; background: #eef7ff; border-left: 4px solid #2ecc71; border-radius: 4px;">
+            <h4>📦 Proiect complet pentru IntelliJ:</h4>
+            <p>Descarcă arhiva completă cu toate fișierele și exercițiile aferente acestui laborator:</p>
+            <a th:href="@{'/downloads/' + ${lectie.nume_fisierZip}}" class="btn" style="background-color: #2ecc71; color: white; padding: 10px 15px; text-decoration: none; border-radius: 4px; display: inline-block; margin-top: 10px;" download>
+                📥 Descarcă Arhiva Laboratorului (.zip)
+            </a>
+        </div>
+    </div>
+
+
+    <!-- 2. Dacă NU este laborator, afișăm codul tău clasic și explicația -->
+    <div th:if="${lectie.categorie != 'Laboratoare'}">
+        <h3>Cod sursă Java:</h3>
+        <!-- Blocul care afiseaza codul brut -->
+        <pre><code th:text="${lectie.cod}">// Codul Java va aparea aici...</code></pre>
+
+        <!-- Secțiunea dedicată explicării codului -->
+        <div class="explicatie-box">
+            <h4>Explicația codului:</h4>
+            <p th:text="${lectie.explicatie}">Explicație cod...</p>
+        </div>
     </div>
 </div>
 

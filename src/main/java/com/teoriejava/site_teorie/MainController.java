@@ -85,7 +85,9 @@ public class MainController {
     public String updateLectie(@RequestParam Long id,
                                @RequestParam String titlu,
                                @RequestParam String categorie,
-                               @RequestParam String continut) {
+                               @RequestParam String continut,
+                               @RequestParam String cod,
+                               @RequestParam String explicatie) {
 
         // 1. Căutăm lecția existentă în baza de date după ID
         Lectie lectie = lectieRepository.findById(id).orElseThrow();
@@ -94,6 +96,8 @@ public class MainController {
         lectie.setTitlu(titlu);
         lectie.setCategorie(categorie);
         lectie.setContinut(continut);
+        lectie.setExplicatie(explicatie);
+        lectie.setCod(cod);
 
         // 3. Salvăm modificările în H2 (Spring Data JPA face automat UPDATE pentru că ID-ul există deja)
         lectieRepository.save(lectie);

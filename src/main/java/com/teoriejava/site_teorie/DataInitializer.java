@@ -16,7 +16,7 @@ public class DataInitializer implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-       // lectieRepository.deleteAll();
+        //lectieRepository.deleteAll();
 
         if (lectieRepository.findByTitlu("Metode de Instanță").isEmpty()) {
             lectieRepository.save(new Lectie("Metode de Instanță", "Metode", "Aparțin fiecărui obiect și pot accesa atributele și alte metode ale instanței.", """
@@ -196,7 +196,7 @@ public class DataInitializer implements CommandLineRunner {
                             """
             ));
         }
-        if(lectieRepository.findByTitlu("Instrucțiunea continue").isEmpty()) {
+        if (lectieRepository.findByTitlu("Instrucțiunea continue").isEmpty()) {
             lectieRepository.save(new Lectie(
                     "Instrucțiunea continue",
                     "Concepte Fundamentale",
@@ -215,28 +215,147 @@ public class DataInitializer implements CommandLineRunner {
                             """
             ));
         }
-       if(lectieRepository.findByTitlu("Metode abstracte").isEmpty()) {
-           lectieRepository.save(new Lectie(
-                   "Metode abstracte",
-                   "Metode",
-                   "O metodă declarată fără implementare, care trebuie să fie implementată în subclase.",
-                   """
-                           public abstract class Animal {
-                               public abstract void sunet();
-                           }
-                           
-                           public class Caine extends Animal {
-                               @Override
-                               public void sunet() {
-                                   System.out.println("Ham Ham");
-                               }
-                           }
-                           """,
-                   """
-                           Metodele abstracte sunt folosite în clasele abstracte pentru a defini un comportament 
-                           care trebuie implementat de toate subclasele. Ele nu au corp și sunt declarate cu cuvântul cheie 'abstract'.
-                           """
-           ));
-       }
+        if (lectieRepository.findByTitlu("Metode abstracte").isEmpty()) {
+            lectieRepository.save(new Lectie(
+                    "Metode abstracte",
+                    "Metode",
+                    "O metodă declarată fără implementare, care trebuie să fie implementată în subclase.",
+                    """
+                            public abstract class Animal {
+                                public abstract void sunet();
+                            }
+                            
+                            public class Caine extends Animal {
+                                @Override
+                                public void sunet() {
+                                    System.out.println("Ham Ham");
+                                }
+                            }
+                            """,
+                    """
+                            Metodele abstracte sunt folosite în clasele abstracte pentru a defini un comportament 
+                            care trebuie implementat de toate subclasele. Ele nu au corp și sunt declarate cu cuvântul cheie 'abstract'.
+                            """
+            ));
+        }
+        if (lectieRepository.findByTitlu("Structuri Lexicale în Java").isEmpty()) {
+            lectieRepository.save(new Lectie(
+                    "Structuri Lexicale în Java",
+                    "Concepte Fundamentale",
+                    "Elementele fundamentale ale limbajului Java: identificatori, cuvinte cheie, literali, operatori și separatorii.",
+                    """
+                            public class ExempluLexical {
+                                public static void main(String[] args) {
+                                    // Literali și identificatori
+                                    int varsta = 20; // 'varsta' este identificator, '20' este literal întreg
+                                    double pi = 3.14; // literal cu virgulă mobilă
+                                    boolean activ = true; // literal boolean
+                            
+                                    // Operatori aritmetici și de atribuire
+                                    int suma = varsta + 5;
+                                    suma++; // incrementare
+                            
+                                    // Afișare utilizând operatorul de concatenare (+)
+                                    System.out.println("Valoarea sumei este: " + suma);
+                                }
+                            }
+                            """,
+                    """
+                            Structurile lexicale reprezintă blocurile de bază din care se construiesc programele Java:
+                            1. Identificatori: Nume date claselor, metodelor și variabilelor (case-sensitive, ex: camelCase).
+                            2. Cuvinte cheie (Keywords): Termeni rezervați cu semnificație specială (ex: class, public, if, for).
+                            3. Literali: Valori constante care apar direct în cod (întregi, float, char, String, boolean, null).
+                            4. Operatorii și Separatorii: Simboluri pentru calcul, atribuire și delimitarea structurilor de cod.
+                            """
+            ));
+        }
+        if (lectieRepository.findByTitlu("Tipuri Primitive și Array-uri").isEmpty()) {
+            lectieRepository.save(new Lectie(
+                    "Tipuri Primitive și Array-uri",
+                    "Concepte Fundamentale",
+                    "Cele 8 tipuri primitive de date în Java, conversiile (casting) și utilizarea array-urilor unidi- și multidimensionale.",
+                    """
+                            public class ExempluTipuriSiArrayuri {
+                                public static void main(String[] args) {
+                                    // Tipuri primitive
+                                    int varsta = 20;
+                                    double medie = 9.5;
+                                    char grupa = 'A';
+                                    boolean absolvent = false;
+
+                                    // Array de numere
+                                    int[] note = {8, 9, 10, 7, 9};
+                                    
+                                    // Parcurgere cu for-each
+                                    int suma = 0;
+                                    for (int nota : note) {
+                                        suma += nota;
+                                    }
+                                    double mediaNote = (double) suma / note.length;
+                                    
+                                    System.out.println("Media notelor: " + mediaNote);
+                                }
+                            }
+                            """,
+                    """
+                            1. Tipurile Primitive: Java are 8 tipuri primitive (byte, short, int, long, float, double, char, boolean). Ele stochează direct valorile în stivă și nu sunt obiecte.
+                            2. Conversii (Casting): Pot fi implicite (widening, ex: byte la int) sau explicite (narrowing, ex: int la byte prin (byte)i).
+                            3. Array-uri: Sunt obiecte de lungime fixă care stochează elemente de același tip. Indexarea începe de la 0, iar clasa 'java.util.Arrays' oferă metode utile precum sort, binarySearch sau toString.
+                            """
+            ));
+        }
+        if (lectieRepository.findByTitlu("Introducere în clasa String").isEmpty()) {
+            lectieRepository.save(new Lectie(
+                    "Introducere în clasa String",
+                    "Concepte Fundamentale",
+                    "Manipularea textului în Java, imutabilitatea, String Pool, metode importante și diferența dintre String și StringBuilder.",
+                    """
+                            public class ExempluString {
+                                public static void main(String[] args) {
+                                    // Creare și imutabilitate
+                                    String text = "Hello";
+                                    text = text.concat(" World"); // Atribuirea este necesară!
+                                    System.out.println(text); // Hello World
+
+                                    // Compararea conținutului (corect vs greșit)
+                                    String s1 = "abc";
+                                    String s3 = new String("abc");
+                                    System.out.println(s1.equals(s3)); // true (conținut identic)
+
+                                    // Utilizare StringBuilder pentru performanță la concatenări multiple
+                                    StringBuilder sb = new StringBuilder();
+                                    sb.append("Salut, ");
+                                    sb.append("Java!");
+                                    String rezultat = sb.toString();
+                                    System.out.println(rezultat);
+                                }
+                            }
+                            """,
+                    """
+                            1. Imutabilitate: Odată creat, conținutul unui obiect String nu poate fi modificat. Orice operație (cum ar fi concat) creează un obiect nou.
+                            2. String Pool: Java folosește un bazin intern pentru optimizarea memoriei literaliilor identici.
+                            3. Metode esențiale: length(), charAt(), substring(), equals(), toLowerCase(), split().
+                            4. StringBuilder vs String: StringBuilder este mutabil și mult mai eficient pentru concatenări repetate într-o buclă, evitând crearea excesivă de obiecte în memorie.
+                            """
+            ));
+        }
+        if (lectieRepository.findByTitlu("Laboratorul 1 - Aplicații Practice").isEmpty()) {
+            lectieRepository.save(new Lectie(
+                    "Laboratorul 1 - Aplicații Practice",
+                    "Laboratoare", // Aceasta va crea automat categoria "Laboratoare" în dropdown
+                    "Acest laborator conține exercițiile de bază pentru structuri alternative, operatori și array-uri. Descărcați arhiva completă de mai jos și rulați proiectul în IntelliJ.",
+                    "isp-lab-1.zip"
+            ));
+        }
+        if (lectieRepository.findByTitlu("Laboratorul 3 - OOP: Clase și Obiecte").isEmpty()) {
+            lectieRepository.save(new Lectie(
+                    "Laboratorul 3 - OOP: Clase și Obiecte",
+                    "Laboratoare",
+                    "Introducere în clase, constructori, metode și principii de bază OOP în Java.",
+                    "isp-lab-3.zip"
+            ));
+        }
+
+
     }
 }

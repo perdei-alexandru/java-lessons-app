@@ -22,6 +22,7 @@ public class Lectie {
 
     @Column(length = 4000)
     private String explicatie;
+    private String nume_fisierZip;
 
     // Constructori
     public Lectie() {
@@ -31,6 +32,12 @@ public class Lectie {
         this.titlu = titlu;
         this.categorie = categorie;
         this.continut = continut;
+    }
+    public Lectie(String titlu, String categorie, String continut, String nume_fisierZip) {
+        this.titlu = titlu;
+        this.categorie = categorie;
+        this.continut = continut;
+        this.nume_fisierZip=nume_fisierZip;
     }
 
     public Lectie(String titlu, String categorie, String continut, String cod, String explicatie) {
@@ -88,5 +95,13 @@ public class Lectie {
 
     public void setExplicatie(String explicatie) {
         this.explicatie = explicatie;
+    }
+
+    public String getNume_fisierZip() {
+        return nume_fisierZip;
+    }
+
+    public void setNume_fisierZip(String nume_fisierZip) {
+        this.nume_fisierZip = nume_fisierZip;
     }
 }

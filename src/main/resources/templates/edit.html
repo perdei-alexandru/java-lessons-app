@@ -82,6 +82,16 @@
             <label for="continut">Conținut:</label>
             <textarea id="continut" name="continut" rows="6" th:text="${lectie.continut}" required></textarea>
         </div>
+        <div class="form-group">
+            <label for="cod">Cod Sursă Java:</label>
+            <textarea id="cod" name="cod" rows="8" th:text="${lectie.cod}" style="font-family: monospace; background: #282c34; color: #abb2bf;"></textarea>
+        </div>
+
+        <!-- 6. EXPLICAȚIA CODULUI -->
+        <div class="form-group">
+            <label for="explicatie">Explicația Codului:</label>
+            <textarea id="explicatie" name="explicatie" rows="4" th:text="${lectie.explicatie}"></textarea>
+        </div>
 
         <!-- BUTOANE ACȚIUNE -->
         <button type="submit" class="btn">Salvează Modificările</button>
