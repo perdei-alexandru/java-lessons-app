@@ -69,9 +69,16 @@
             text-transform: uppercase;
             display: inline-block;
         }
-        .titlu-lectie {
+       .titlu-lectie {
             margin-top: 10px;
             color: #2c3e50;
+            transition: color 0.2s ease; /* Face tranziția culorii lină */
+        }
+
+        /* Când utilizatorul trece cu mouse-ul peste linkul care conține titlul */
+        a:hover .titlu-lectie {
+            color: #3498db; /* Titlul devine albastru la hover */
+            text-decoration: underline; /* Subliniază titlul */
         }
         .continut {
             color: #555;
@@ -157,8 +164,8 @@
     <!-- LISTA DE LECȚII DIN BAZA DE DATE -->
     <div class="card" th:each="lectie : ${lectii}">
         <span class="badge" th:text="${lectie.categorie}">Categorie</span>
-        <a th:href="@{/lectie/{id}(id=${lectie.id})}" style="text-decoration: none;">
-            <h2 class="titlu-lectie" th:text="${lectie.titlu}" style="cursor: pointer;">Titlu Lecție</h2>
+        <a th:href="@{/lectie/{id}(id=${lectie.id})}" title="Citește mai mult" style="text-decoration: none;">
+            <h2 class="titlu-lectie" th:text="${lectie.titlu}">Titlu Lecție</h2>
         </a>
         <p class="continut" th:text="${lectie.continut}">Conținutul lecției...</p>
 

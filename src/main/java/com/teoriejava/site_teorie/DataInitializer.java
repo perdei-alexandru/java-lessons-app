@@ -16,7 +16,7 @@ public class DataInitializer implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        //lectieRepository.deleteAll();
+        lectieRepository.deleteAll();
 
         if (lectieRepository.findByTitlu("Metode de Instanță").isEmpty()) {
             lectieRepository.save(new Lectie("Metode de Instanță", "Metode", "Aparțin fiecărui obiect și pot accesa atributele și alte metode ale instanței.", """
@@ -355,7 +355,300 @@ public class DataInitializer implements CommandLineRunner {
                     "isp-lab-3.zip"
             ));
         }
+        if (lectieRepository.findByTitlu("Clasă și Obiect").isEmpty()) {
+            lectieRepository.save(new Lectie(
+                    "Clasă și Obiect",
+                    "Clase și Obiecte",
+                    "Ce este o clasă, cum se creează o instanță cu operatorul new și ce înseamnă valoarea null.",
+                    """
+                            // Declararea unei clase (Șablonul)
+                            public class Student {
+                                private String nume;
+                                private int varsta;
+        
+                                public Student(String nume, int varsta) {
+                                    this.nume = nume;
+                                    this.varsta = varsta;
+                                }
+                            }
+        
+                            // Crearea obiectului (Instanțierea)
+                            Student student1 = new Student("Ion", 20);
+                            
+                            // Referință null
+                            Student student2 = null; // Nu indică spre niciun obiect
+                            """,
+                    """
+                            1. Clasa este un șablon (blueprint) care definește atributele (datele) și comportamentul (metodele).
+                            2. Obiectul este o instanță concretă creată pe baza acelui șablon.
+                            3. Operatorul 'new' alocă memorie în Heap, execută constructorul și returnează adresa obiectului.
+                            4. Cuvântul cheie 'null' arată că o variabilă de tip referință nu arată către nicio zonă din memorie (atenție la NullPointerException!).
+                            """
+            ));
+        }
+        if (lectieRepository.findByTitlu("Atribute, this și static").isEmpty()) {
+            lectieRepository.save(new Lectie(
+                    "Atribute, this și static",
+                    "Clase și Obiecte",
+                    "Clasificarea atributelor, rolul variabilelor statice și utilizarea cuvântului cheie this.",
+                    """
+                            public class Persoana {
+                                private String nume;             // Atribut de instanță
+                                private static int contor = 0;   // Atribut static (de clasă)
+                                private final String cnp;        // Atribut final (constantă)
+        
+                                public Persoana(String nume, String cnp) {
+                                    this.nume = nume;            // 'this' rezolvă ambiguitatea numelui
+                                    this.cnp = cnp;
+                                    contor++;                    // Incrementează contorul comun
+                                }
+                                
+                                public static int getContor() {
+                                    return contor;
+                                }
+                            }
+                            """,
+                    """
+                            1. Atribute de instanță: Fiecărui obiect îi aparține câte o copie a variabilei.
+                            2. Atribute statice (static): Sunt comune pentru TOATE obiectele clasei și aparțin clasei în sine, nu instanțelor.
+                            3. Atribute finale (final): Odată inițializate, valoarea lor nu mai poate fi modificată.
+                            4. Cuvântul cheie 'this': Se referă la instanța curentă a clasei (folosit pentru dezambiguizare sau înlănțuire de metode).
+                            """
+            ));
+        }
+        if (lectieRepository.findByTitlu("Constructori și Overloading").isEmpty()) {
+            lectieRepository.save(new Lectie(
+                    "Constructori și Overloading",
+                    "Clase și Obiecte",
+                    "Crearea constructorilor împlicitați și cu parametri, plus tehnica de supraîncărcare a metodelor.",
+                    """
+                            public class Carte {
+                                private String titlu;
+                                private int an;
+        
+                                // Constructor implicit
+                                public Carte() {
+                                    this("Fără titlu", 2000); // Apelează al doilea constructor cu 'this'
+                                }
+        
+                                // Constructor cu parametri
+                                public Carte(String titlu, int an) {
+                                    this.titlu = titlu;
+                                    this.an = an;
+                                }
+        
+                                // Supraîncărcarea metodei (Overloading)
+                                public void afiseazaInfo() {
+                                    System.out.println(titlu + " - " + an);
+                                }
+        
+                                public void afiseazaInfo(String prefix) {
+                                    System.out.println(prefix + ": " + titlu);
+                                }
+                            }
+                            """,
+                    """
+                            1. Constructorul este o metodă specială (fără tip returnat, cu numele identic cu clasa) apelată la 'new'.
+                            2. Putem avea mai mulți constructori în aceeași clasă prin supraîncărcare (Overloading).
+                            3. Overloading (Supraîncărcarea): Permite definirea mai multor metode cu ACELAȘI nume, dar cu parametri diferiți (ca număr sau ca tip). Tipul returnat NU diferențiază metodele!
+                            """
+            ));
+        }
+        if (lectieRepository.findByTitlu("Accesibilitate și Comparare Obiecte").isEmpty()) {
+            lectieRepository.save(new Lectie(
+                    "Accesibilitate și Comparare Obiecte",
+                    "Clase și Obiecte",
+                    "Nivelurile de acces (public, private, protected), compararea cu equals() și funcționarea Garbage Collector-ului.",
+                    """
+                            public class Utilizator {
+                                private String email; // Accesibil doar în clasă
+        
+                                @Override
+                                public boolean equals(Object obj) {
+                                    if (this == obj) return true;
+                                    if (obj == null || getClass() != obj.getClass()) return false;
+                                    Utilizator altul = (Utilizator) obj;
+                                    return email != null && email.equals(altul.email);
+                                }
+                            }
+                            
+                            // Comparare:
+                            // '==' compară adresele de memorie (referințele)
+                            // 'equals()' compară conținutul obiectelor
+                            """,
+                    """
+                            1. Modificatori de acces:
+                               - private: Doar în interiorul clasei.
+                               - default (fără specificator): Doar în cadrul aceluiași pachet.
+                               - protected: În pachet și în subclase (moștenire).
+                               - public: De oriunde.
+                            2. Compararea obiectelor: Operatorul '==' verifică dacă două variabile arată spre aceeași adresă de memorie. Metoda 'equals()' trebuie suprascrisă pentru a compara valorile/conținutul real din obiecte.
+                            3. Garbage Collector (GC): Procesul automat din fundalul Java care identifică și șterge obiectele devenite inaccesibile (fără referință) pentru a elibera memoria RAM.
+                            """
+            ));
+        }
+        if (lectieRepository.findByTitlu("Agregarea").isEmpty()) {
+            lectieRepository.save(new Lectie(
+                    "Agregarea",
+                    "OOP",
+                    "Relația de tip 'has-a' slabă (parte-din), unde obiectele conținute pot exista independent de container.",
+                    """
+                    import java.util.List;
+                    import java.util.ArrayList;
 
+                    public class Profesor {
+                        private String nume;
 
+                        public Profesor(String nume) {
+                            this.nume = nume;
+                        }
+
+                        public String getNume() { return nume; }
+                    }
+
+                    public class Facultate {
+                        private String denumire;
+                        private List<Profesor> profesori; // Agregare: profesorii pot exista și fără facultate
+
+                        public Facultate(String denumire, List<Profesor> profesori) {
+                            this.denumire = denumire;
+                            this.profesori = profesori;
+                        }
+
+                        public void afiseazaFacultate() {
+                            System.out.println("Facultatea: " + denumire);
+                            for (Profesor p : profesori) {
+                                System.out.println(" - Profesor: " + p.getNume());
+                            }
+                        }
+                    }
+                    """,
+                    """
+                    Agregarea este o asociație slabă de tip 'are un'. Obiectul parte (Profesorul) este independent 
+                    și nu își pierde existența dacă obiectul întreg (Facultatea) este distrus sau șters din memorie.
+                    """
+            ));
+        }
+
+        if (lectieRepository.findByTitlu("Compoziția").isEmpty()) {
+            lectieRepository.save(new Lectie(
+                    "Compoziția",
+                    "OOP",
+                    "Relația de tip 'has-a' puternică, unde obiectul component nu poate exista în afara containerului.",
+                    """
+                    public class Procesor {
+                        private String model;
+                        private double frecventa;
+
+                        public Procesor(String model, double frecventa) {
+                            this.model = model;
+                            this.frecventa = frecventa;
+                        }
+
+                        public void descrieProcesor() {
+                            System.out.println("Procesor: " + model + " (" + frecventa + " GHz)");
+                        }
+                    }
+
+                    public class Laptop {
+                        private String brand;
+                        private final Procesor procesor; // Compoziție strictă (creat în interior)
+
+                        public Laptop(String brand, String modelProcesor, double frecventa) {
+                            this.brand = brand;
+                            // Procesorul este creat direct în constructorul laptopului
+                            this.procesor = new Procesor(modelProcesor, frecventa);
+                        }
+
+                        public void pornesteLaptop() {
+                            System.out.println("Laptopul " + brand + " pornește...");
+                            procesor.descrieProcesor();
+                        }
+                    }
+                    """,
+                    """
+                    Compoziția reprezintă o relație strictă în care ciclul de viață al părților componente este controlat 
+                    total de către obiectul container. Dacă obiectul Laptop este distrus, Procesorul este și el distrus odată cu el.
+                    """
+            ));
+        }
+
+        if (lectieRepository.findByTitlu("Moștenirea").isEmpty()) {
+            lectieRepository.save(new Lectie(
+                    "Moștenirea",
+                    "OOP",
+                    "Mecanismul prin care o clasă preia atributele și metodele alteia, folosind extends și super.",
+                    """
+                    public class Persoana {
+                        protected String nume;
+                        protected int varsta;
+
+                        public Persoana(String nume, int varsta) {
+                            this.nume = nume;
+                            this.varsta = varsta;
+                        }
+
+                        public void afiseazaDetalii() {
+                            System.out.println("Nume: " + nume + ", Vârstă: " + varsta);
+                        }
+                    }
+
+                    public class Student extends Persoana {
+                        private double medie;
+
+                        public Student(String nume, int varsta, double medie) {
+                            super(nume, varsta); // Apelăm constructorul din clasa părinte
+                            this.medie = medie;
+                        }
+
+                        @Override
+                        public void afiseazaDetalii() {
+                            super.afiseazaDetalii(); // Refolosim logica din părinte
+                            System.out.println("Media academică: " + medie);
+                        }
+                    }
+                    """,
+                    """
+                    Moștenirea permite extinderea claselor existente (superclase) în clase noi (subclase) 
+                    pentru a evita duplicarea codului și a crea ierarhii logice clare de tip 'is-a'.
+                    """
+            ));
+        }
+
+        if (lectieRepository.findByTitlu("Conversii de Tip").isEmpty()) {
+            lectieRepository.save(new Lectie(
+                    "Conversii de Tip",
+                    "OOP",
+                    "Conversii implicite (Upcasting) și explicite (Downcasting) în ierarhia de obiecte.",
+                    """
+                    public class TestCasting {
+                        public static void main(String[] args) {
+                            // 1. Upcasting: Conversie de la subclasă la superclasă (implicită și sigură)
+                            Persoana p = new Student("Alex", 20, 9.6);
+                            p.afiseazaDetalii(); // Funcționează polimorfic
+
+                            // 2. Downcasting: Conversie de la superclasă la subclasă (explicită)
+                            if (p instanceof Student s) { // Pattern matching cu instanceof (Java 16+)
+                                System.out.println("S-a făcut downcasting cu succes pentru student!");
+                                // Acum putem folosi variabile și metode specifice clasei Student
+                            }
+                        }
+                    }
+                    """,
+                    """
+                    1. Upcasting-ul este întotdeauna sigur deoarece un obiect copil este și un obiect părinte.
+                    2. Downcasting-ul necesită o conversie explicită și este recomandat să fie validat 
+                       în prealabil cu operatorul 'instanceof' pentru a preveni erorile de tip 'ClassCastException'.
+                    """
+            ));
+        }
+        if (lectieRepository.findByTitlu("Laboratorul 4 - OOP: Agregare, Mostenire, Compozitie").isEmpty()) {
+            lectieRepository.save(new Lectie(
+                    "Laboratorul 4 - OOP: Agregare, Mostenire, Compozitie",
+                    "Laboratoare",
+                    "Aplicații practice pentru concepte avansate OOP: Agregare, Compoziție, Moștenire și Conversii de tip.",
+                    "isp-lab-4.zip"
+            ));
+        }
     }
 }
