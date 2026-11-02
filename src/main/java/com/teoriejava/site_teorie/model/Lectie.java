@@ -22,7 +22,10 @@ public class Lectie {
 
     @Column(length = 4000)
     private String explicatie;
+
     private String nume_fisierZip;
+
+    private String imagineUrl;
 
     // Constructori
     public Lectie() {
@@ -40,12 +43,22 @@ public class Lectie {
         this.nume_fisierZip=nume_fisierZip;
     }
 
+
     public Lectie(String titlu, String categorie, String continut, String cod, String explicatie) {
         this.titlu = titlu;
         this.categorie = categorie;
         this.continut = continut;
         this.cod = cod;
         this.explicatie = explicatie;
+    }
+
+    public Lectie(String titlu, String categorie, String continut, String cod, String explicatie, String imagineUrl) {
+        this.titlu = titlu;
+        this.categorie = categorie;
+        this.continut = continut;
+        this.cod = cod;
+        this.explicatie = explicatie;
+        this.imagineUrl = imagineUrl;
     }
 
     // Getteri și Setteri
@@ -97,11 +110,20 @@ public class Lectie {
         this.explicatie = explicatie;
     }
 
+
     public String getNume_fisierZip() {
         return nume_fisierZip;
     }
 
     public void setNume_fisierZip(String nume_fisierZip) {
         this.nume_fisierZip = nume_fisierZip;
+    }
+
+    public String getImagineUrl() {
+        return imagineUrl;
+    }
+
+    public void setImagineUrl(String imagineUrl) {
+        this.imagineUrl = imagineUrl;
     }
 }

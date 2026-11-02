@@ -650,5 +650,128 @@ public class DataInitializer implements CommandLineRunner {
                     "isp-lab-4.zip"
             ));
         }
+        // 1. Lecția: Clase Abstracte
+        lectieRepository.save(new Lectie(
+                "Clase Abstracte",
+                "OOP",
+                """
+                O clasă abstractă servește drept șablon general și nu poate fi instanțiată direct cu 'new'. O clasă abstractă poate conține:
+                - Atribute și constructori proprii (utilizați de subclase prin 'super').
+                - Metode concrete (cu corp și implementare completă, moștenite direct).
+                - Metode abstracte (fără corp, marcate cu 'abstract', care forțează obligatoriu subclasele să le suprascrie prin '@Override').
+                """,
+                """
+                abstract class Animal {
+                    String nume;
+    
+                    // Constructor în clasă abstractă
+                    public Animal(String nume) {
+                        this.nume = nume;
+                    }
+    
+                    // Metodă concretă (cu implementare)
+                    public void respira() {
+                        System.out.println(nume + " respiră aer.");
+                    }
+    
+                    // Metodă abstractă (fără corp, obligatoriu de implementat)
+                    public abstract void sunet();
+                }
+    
+                class Caine extends Animal {
+                    public Caine(String nume) {
+                        super(nume);
+                    }
+    
+                    @Override
+                    public void sunet() {
+                        System.out.println(nume + " latră: Ham-ham!");
+                    }
+                }
+                """,
+                "Clasa 'Animal' este șablonul abstract: oferă gata scrisă metoda 'respira()' pentru toate animalele, dar o obligă pe subclasa 'Caine' să își definească propriul mod de a scoate sunete prin suprascrierea metodei abstracte 'sunet()'."
+        ));
+
+        // 2. Lecția: Interfețe
+        lectieRepository.save(new Lectie(
+                "Interfețe",
+                "OOP",
+                """
+                O interfață reprezintă un contract strict care definește *ce* trebuie să facă o clasă, fără a impune *cum*. O interfață poate conține:
+                - Metode abstracte (fără corp, implicite public abstract).
+                - Metode 'default' (cu implementare predefinită, introduse din Java 8 pentru flexibilitate).
+                - Metode statice.
+                - Constante (publice, statice și finale).
+                Spre deosebire de clase, o clasă poate implementa mai multe interfețe simultan, rezolvând limitarea moștenirii simple din Java.
+                """,
+                """
+                interface Zburator {
+                    void zboara(); // Metodă abstractă implicit
+                }
+    
+                interface Inotator {
+                    void inoata();
+                }
+    
+                // O clasă implementează mai multe interfețe (moștenire multiplă de comportament)
+                class Rata implements Zburator, Inotator {
+                    @Override
+                    public void zboara() {
+                        System.out.println("Rața zboară la înălțime mică.");
+                    }
+    
+                    @Override
+                    public void inoata() {
+                        System.out.println("Rața înoată pe lac.");
+                    }
+                }
+                """,
+                "Interfețele 'Zburator' și 'Inotator' funcționează ca niște comportamente modulare. Clasa 'Rata' le preia pe ambele prin 'implements', demonstrând cum o clasă poate dobândi capabilități multiple din surse diferite."
+        ));
+
+        // Lecția 1: Diagrame de clase UML - Relații structurale
+        lectieRepository.save(new Lectie(
+                "Relații Structurale în Diagramele UML (Compoziție, Agregare, Moștenire)",
+                "OOP",
+                "Această diagramă ilustrează o ierarhie orientată pe obiecte care modelează un autovehicul complet, compus din motoare și sisteme de alarmă.",
+                "", // Fără bloc de cod Java, avem doar imaginea și explicațiile vizuale
+                """
+                Detalierea elementelor din diagramă:
+        
+                1. Compoziția (Romb plin): Conectează `Car` de `CarAlarm` (relație 'part-of' strictă; alarma nu poate exista independent de mașină).
+        
+                2. Agregarea (Romb gol): Conectează `Car` de `Engine` (relație 'has-a' mai slabă; motorul poate exista separat).
+        
+                3. Moștenirea (Săgeată goală): Clasele `DieselEngine` și `ElectricEngine` moștenesc clasa de bază `Engine` (preiau atributele și își definesc propriul `startEngine()`).
+                """,
+                "/Diagrama1.jpg"
+        ));
+        lectieRepository.save(new Lectie(
+                "Relații Aprofundate în Diagramele UML: Implementare și Dependență",
+                "OOP",
+                "Această lecție detaliază relațiile avansate din UML: Implementarea de interfețe (Realization) și Dependența dintre clase.",
+                "",
+                """
+                Detalierea elementelor și a relațiilor UML:
+        
+                1. Implementarea / Realizarea (Săgeată cu linie întreruptă și vârf triunghiular gol): 
+                - Conectează clasele concrete (ex: `CashPayment`, `CardPayment`) la interfața `PaymentGateway`. Indică faptul că aceste clase implementează efectiv comportamentul definit în contractul interfeței (`executePayment`).
+        
+                2. Dependența (Săgeată cu linie întreruptă simplă): 
+                - Arată că o clasă depinde temporar sau folosește o altă clasă (de exemplu, `UserApp` folosește `PaymentGateway` sau `Ticket` ca parametru într-o metodă). O schimbare în clasa utilizată poate afecta clasa client.
+        
+                3. Compoziția și Agregarea (Reamintire): 
+                - Compoziția (romb plin - relație strictă 'part-of') vs Agregarea (romb gol - relație slabă 'has-a').
+                """,
+                "/Diagrama2.jpg"
+        ));
+        if (lectieRepository.findByTitlu("Laboratorul 5 - Implementare Cod după Diagrame de Clase").isEmpty()) {
+            lectieRepository.save(new Lectie(
+                    "Laboratorul 5 - Implementare Cod după Diagrame de Clase",
+                    "Laboratoare",
+                    "Implementarea practică în Java a claselor, interfețelor și a relațiilor (compoziție, agregare, moștenire, dependență) plecând de la diagramele de clase UML furnizate.",
+                    "isp-lab-5.zip"
+            ));
+        }
     }
 }

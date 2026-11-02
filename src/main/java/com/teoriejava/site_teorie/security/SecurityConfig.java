@@ -20,7 +20,7 @@ public class SecurityConfig {
         http
                 .authorizeHttpRequests(authorize -> authorize
                         // Rute permise pentru oricine (fizic sau neautentificat)
-                        .requestMatchers("/", "/lectie/**", "/css/**","/downloads/**", "/js/**").permitAll()
+                        .requestMatchers("/", "/lectie/**", "/css/**","/downloads/**", "/js/**","/*.jpg").permitAll()
                         // Orice altă rută (cum ar fi adăugare/ștergere/editare) cere rolul de ADMIN
                         .anyRequest().authenticated()
                 )

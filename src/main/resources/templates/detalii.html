@@ -55,6 +55,7 @@
             padding: 15px;
             margin-top: 25px;
             border-radius: 4px;
+            white-space: pre-line; /* Această linie rezolvă totul instant */
         }
         .explicatie-box h4 {
             margin-top: 0;
@@ -99,6 +100,14 @@
         <h3>Cod sursă Java:</h3>
         <!-- Blocul care afiseaza codul brut -->
         <pre><code th:text="${lectie.cod}">// Codul Java va aparea aici...</code></pre>
+
+
+        <div th:if="${lectie.imagineUrl != null and !lectie.imagineUrl.isEmpty()}"
+             style="text-align: center; margin: 25px 0;">
+            <img th:src="@{${lectie.imagineUrl}}"
+                 alt="Diagramă UML"
+                 style="max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); border: 1px solid #e0e0e0;" />
+        </div>
 
         <!-- Secțiunea dedicată explicării codului -->
         <div class="explicatie-box">
